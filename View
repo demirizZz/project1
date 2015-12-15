@@ -1,0 +1,47 @@
+<?php
+	include('up.php');
+	
+?>
+<div style="margin:10px 15px;">
+	<div style="float:left; width:690px;">
+			<div class="page-title">
+				<h1>KAYIT OL</h1>
+			</div>
+							</p>
+			<form name="uyeol" class="formrequired" method="post" action="action.php">
+				<h3 class="bg-gray">Kişisel Bilgiler</h3>
+				<label class="spe">Adınız</label> <input type="text" class="spe required" name="user_first_name">
+				<div class="row-line"></div>
+				<label class="spe">Soyadınız</label> <input type="text" class="spe required" name="user_last_name">
+				<div class="row-line"></div>
+				<label class="spe">E-mail</label> <input type="text" class="spe required email" name="user_email">
+				<div class="row-line"></div>
+				<label class="spe">Doğum Tarihi</label> <input type="text" class="spe required datepicker" name="user_birth_date">
+				<div class="row-line"></div>
+				<label class="spe">Cinsiyet</label> <input type="radio" value="1" name="user_sex"> Erkek <input type="radio" value="0" name="user_sex"> Bayan
+				
+				<h3 class="bg-gray">İletişim Bilgileri</h3>
+				
+				<label class="spe">Telefon</label> <input type="text" class="spe required" name="user_phone1">
+				<div class="row-line"></div>
+				<label class="spe">Cep Telefonu</label> <input type="text" class="spe required" name="user_phone2">
+				
+				<h3 class="bg-gray">Şifre</h3>
+				<div class="row-line"></div>
+				<label class="spe">Şifre</label> <input type="password" class="password1 spe required equalTo" name="user_password1">
+				<div class="row-line"></div>
+				<label class="spe">Şifre (Tekrar)</label> <input type="password" class="password2 spe required equalTo" name="user_password2">
+				<div class="row-line"></div>
+				<label class="spe">Kullanıcı Sözleşmesi</label> <input name="sozlesme" type="checkbox" class="required" value="1"> <a href="pages.php?content_id=48" target="blank" class="link">Kullanıcı Sözleşmesini okuduğumu ve anladığımız kabul ediyorum.</a>
+				<div class="row-line"></div>
+				
+				<input type="hidden" name="action" value="user-save">
+				<input class="submit" type="submit" value="Gönder">
+			</form>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<?php
+	include('down.php');
+?>
