@@ -1,0 +1,74 @@
+<?php
+include('up.php');
+	
+	$user = new users(); // Nesne Tanımlandı
+
+	switch($_POST[action]){
+		
+		
+		// Üye Kayıt 
+		case 'user-save':
+			
+			if($_POST[sozlesme] == '1' || $_POST['user_password1'] == $_POST['user_password2']){
+				
+				$user-> user_first_name = mysql_real_escape_string($_POST['user_first_name']);
+				$user-> user_last_name =  mysql_real_escape_string($_POST['user_last_name']);
+				$user-> user_email = mysql_real_escape_string($_POST['user_email']);
+				$user-> user_birth_date = mysql_real_escape_string($_POST['user_birth_date']);
+				$user-> user_sex = mysql_real_escape_string($_POST['user_sex']);
+				$user-> user_phone1 = mysql_real_escape_string($_POST['user_phone1']);
+				$user-> user_phone2 = mysql_real_escape_string($_POST['user_phone2']);
+				$user-> user_password = mysql_real_escape_string($_POST['user_password1']);	
+				$user-> user_password2 = md5(mysql_real_escape_string($_POST['user_password1']));
+				
+				$user-> add(); // Class'ı tetikle
+				
+				// SESSION SET 
+				$_SESSION['user_id'] = $user->user_id;
+					
+			 	echo '<div class="dialog-message" title="Tebirkler !" id="profil.php">
+			 				Kayıt İşlemi Başarıyla Gerçekleştirildi.
+			 		</div>';
+			}else{
+				echo '<div class="dialog-message" title="Hata !" id="uyeol.php">
+			 				Kayıt işlemi başarısız. Lütfen bilgilerinizi kontrol edip tekrar deneyiniz.
+			 		</div>';
+			}
+		break;
+		
+		case 'user-login':
+				
+				$user-> user_email = mysql_real_escape_string($_POST['user_email']);
+				$user-> user_password = mysql_real_escape_string($_POST['user_password']);	
+				
+				$user-> login(); // Class'ı tetikle
+				
+				if($user->user_id!=''){
+				$_SESSION['user_id'] = $user->user_id;
+				echo '<script> document.location.href="profil.php"; </script>';
+				}else{
+				echo '<div class="dialog-message" title="Hata !" id="uye-islemleri.php">
+	 					Giriş işlemi başarısız. Lütfen bilgilerinizi kontrol edip tekrar deneyiniz.
+	 				  </div>';
+				}
+		break;
+		
+		case 'user-edit':
+			
+			$user-> user_first_name = mysql_real_escape_string($_POST['user_first_name']);
+			$user-> user_last_name =  mysql_real_escape_string($_POST['user_last_name']);
+			$user-> user_email = mysql_real_escape_string($_POST['user_email']);
+			$user-> user_birth_date = mysql_real_escape_string($_POST['user_birth_date']);
+			$user-> user_sex = mysql_real_escape_string($_POST['user_sex']);
+			$user-> user_phone1 = mysql_real_escape_string($_POST['user_phone1']);
+			$user-> user_phone2 = mysql_real_escape_string($_POST['user_phone2']);
+			$user-> user_password = mysql_real_escape_string($_POST['user_password1']);	
+			$user-> user_password2 = md5(mysql_real_escape_string($_POST['user_password1']));
+			
+			$user-> edit(); // Class'ı tetikle
+			echo '<div class="dialog-message" title="Tebirkler !" id="profil.php">
+		 				Düzenleme İşlemi Başarıyla Gerçekleştirildi.
+		 		</div>';
+		break;
+		
+?>		
